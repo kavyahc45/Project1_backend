@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-studentname: {
+username: {
 type: String,
 required: true
 },
@@ -26,6 +26,6 @@ required: true
 
 });
 
-const StudentProfile = mongoose.model('profile', UserSchema);
+const UserProfile = mongoose.model('profile', UserSchema);
 
-module.exports = StudentProfile;
+module.exports = UserProfile;

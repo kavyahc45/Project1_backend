@@ -1,19 +1,18 @@
 const express = require("express")
 const profile = express.Router();
 const cors = require("cors")
-const StudentProfile = require("../models/StudentProfile")
 profile.use(cors())
 process.env.SECRET_KEY = 'secret'
 
-profile.post('/studentProfile', (req, res) => {
+profile.post('/UserProfile', (req, res) => {
 const userData = {
-studentname: req.body.studentname,
+username: req.body.studentname,
 address: req.body.address,
 email: req.body.email,
 course: req.body.course,
 mobileNumber: req.body.mobileNumber
 }
-StudentProfile.findOne({
+UserProfile.findOne({
 studentname: req.body.studentname,
 address: req.body.address,
 email: req.body.email,
@@ -21,9 +20,9 @@ mobileNumber: req.body.mobileNumber
 })
 .then(user => {
 if (!user) {
-StudentProfile.create(userData)
+UserProfile.create(userData)
 .then(user => {
-res.json({ status: 'student registered!' })
+res.json({ status: 'user registered!' })
 })
 .catch(err => {
 res.send('error: ' + err)
@@ -38,9 +37,9 @@ res.send('error: ' + err)
 })
 
 //seraching by student name
-profile.get('/studentProfile', (req, res) => {
-StudentProfile.find({
-studentname: req.query['studentname']
+profile.get('/UserProfile', (req, res) => {
+UserProfile.find({
+username: req.query['studentname']
 })
 .then(user => {
 if (user) {
@@ -56,7 +55,7 @@ res.send('error: ' + err)
 
 // get all students deatils
 profile.get('/student', (req, res) => {
-StudentProfile.find({
+UserProfile.find({
 
 })
 .then(user => {
@@ -72,9 +71,9 @@ res.send('error: ' + err)
 })
 
 // delete by id
-profile.delete('/studentProfile', (req, res) => {
+profile.delete('/UserProfile', (req, res) => {
 console.log(req.body.id, "delete")
-StudentProfile.findByIdAndDelete({
+UserProfile.findByIdAndDelete({
 _id: req.body.id
 })
 .then(user => {
@@ -94,19 +93,19 @@ res.send('error: ' + err)
 profile.get('/edit/:id', (req, res) => {
 console.log(req.params, 'hi')
 const id = req.params.id;
-StudentProfile.findById(id, function (err, StudentProfile) {
+UserProfile.findById(id, function (err, StudentProfile) {
 res.json(StudentProfile);
 });
 });
 
 // update by id
-profile.put('/studentProfile/update/:id', (req, res) => {
+profile.put('/UserProfile/update/:id', (req, res) => {
 console.log(req.body, "update")
-StudentProfile.findOneAndUpdate({
+UserProfile.findOneAndUpdate({
 _id: req.params.id
 },
 {
-studentname: req.body.studentname,
+username: req.body.studentname,
 address: req.body.address,
 email: req.body.email,
 course: req.body.course,
@@ -123,9 +122,9 @@ res.send('error: ' + err)
 
 
 //student by name
-profile.get('/studentProfile/:id', (req, res) => {
-StudentProfile.findOne({
-studentname: "kavya"
+profile.get('/UserProfile/:id', (req, res) => {
+UserProfile.findOne({
+username: "kavya"
 })
 .then(user => {
 if (user) {
@@ -142,7 +141,7 @@ res.send('error: ' + err)
 
 // course by particular name
 profile.get('/course', (req, res) => {
-StudentProfile.find({
+UserProfile.find({
 course: req.query['course']
 })
 .then(user => {
