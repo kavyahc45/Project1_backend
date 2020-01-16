@@ -8,19 +8,19 @@ var TaskSchema = new Schema({
     required: true
 },
 
-email:{
-    type: String,
-    required: true
-},
+// email:{
+//     type: String,
+//     required: true
+// },
 
-Address:{
-    type: String,
-    required: true
-},
-MobileNum:{
-    type: Number,
-    required: true
-},
+// Address:{
+//     type: String,
+//     required: true
+// },
+// MobileNum:{
+//     type: Number,
+//     required: true
+// },
 
 Create_At:{
 

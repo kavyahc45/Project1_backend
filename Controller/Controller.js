@@ -21,13 +21,7 @@ exports.signup= function(req, res){
     console.log(req.body.password)
     res.send('password is invalid');
   }
-  else{
-    if(req.body.password===req.body.Confirmpassword){
-
-    }else{
-      res.send("password missmatch");
-    }
-  }
+  
   // if(!reg_mob.test(req.body.Mobnum)){
   //   res.send('Mobile number is invalid');
   // }
@@ -85,6 +79,7 @@ exports.delete_a_task = function(req, res) {
 
 
 exports.userSignin = (req,res,next) =>{
+  console.log(req.body)
   const email = req.body.email;
   const password = req.body.password;
   let loadedUser;
@@ -122,8 +117,9 @@ exports.userSignin = (req,res,next) =>{
 
 
 
-
-
+// exports.Vehicle = (req,res,next) =>{
+  
+// }
 
 
 

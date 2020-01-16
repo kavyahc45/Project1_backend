@@ -13,7 +13,7 @@ module.exports = function(app) {
     // .post(account.acount_signup);
 
     app.route('/Signin')
-    .get(todoList.userSignin);
+    .post(todoList.userSignin);
 
 
 
