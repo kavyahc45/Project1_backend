@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const UserData =require('../Model/Model');
+const Vechical =require('../Model/Vehiclemodel');
+const Crop = require('../Model/crop')
 const bcrypt =require('bcrypt');
 const jwt = require('jsonwebtoken');
 var isAuth=require('../Middleware/isAuth')
@@ -120,6 +122,86 @@ exports.userSignin = (req,res,next) =>{
 // exports.Vehicle = (req,res,next) =>{
   
 // }
+// exports.vehicles = function(req,res){
+//   var userData = new UserData1(req.body);
+//   userData.save(function(err, data){
+//   if(err)
+//   res.send(err);
+//   res.json(data);
+//   })
+//   }
+
+  exports.get_data = function(req, res) {
+    Vechical.find({}, function(err, task) {
+      if (err)
+        res.send(err);
+        res.json(task);
+      });
+    };
+
+    // exports.update_a_task = function(req, res)
+    // {
+    //   vechical.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, task) {
+    //   if (err)
+    //   res.send(err);
+    //   res.json(task);
+    //   });
+    // };
+
+    // exports.delete_a_task = function(req, res) {
+    //   vechical.remove({_id: req.params.id}, function(err, task) {
+    //   if (err)
+    //   res.send(err);
+    //   res.json({ message: 'Task successfully deleted' });
+    //   });
+    // };
 
 
+    exports.price = (req, res, next) => {
+      console.log(req.body)
+      const  vechical = new Vechical({
+        name: req.body.name,
+        vehicletype:req.body.vehicletype,
+        vehiclename:req.body.vehiclename,
+        price: req.body.price,
+        premium: req.body.price/10
+      })
+      return vechical.save()
+      .then(result => {
+      res.status(200).json({
+      result
+      })
+      })
+      }
+      exports.cropPrice = (req, res, next) => {
+        console.log(req.body)
+        var initialPrice;
+        if(req.body.cropname=="Paddy"){
+          initialPrice=1000;
+        }
+        else{
+          initialPrice=2500;
+        }
+
+        const  crop = new Crop({
+          name: req.body.name,
+          cropname:req.body.cropname,
+          area:req.body.area,
+          price: initialPrice*req.body.area,
+          premium: (initialPrice*req.body.area)/10
+        })
+        return crop.save()
+        .then(result => {
+        res.status(200).json({
+        result
+        })
+        })
+        }
+        exports.get_cropdetailes = function(req, res) {
+          Crop.find({}, function(err, task) {
+            if (err)
+              res.send(err);
+              res.json(task);
+            });
+          };
 
