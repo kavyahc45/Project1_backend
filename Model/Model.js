@@ -16,8 +16,11 @@ password:{
 email:{
     type: String,
     required: true
-}
-
+},
+role:{
+    type:String,
+    default:"user"
+    }
 });
 
 module.exports = mongoose.model('Tasks', TaskSchema);
