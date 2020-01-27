@@ -35,16 +35,16 @@ exports.signup= function(req, res){
       else
       {
         var userData = new UserData(req.body);
-        bcrypt.genSalt(10, function(err, salt){
-          bcrypt.hash(userData.password, salt, function(err, hash) {
-            userData.password = hash;
+        // bcrypt.genSalt(10, function(err, salt){
+        //   bcrypt.hash(userData.password, salt, function(err, hash) {
+        //     userData.password = hash;
             userData.save(function(err, data){
               if(err)
                 res.send(err.message);
               res.json('User Created Succesfully');
             })
-          })
-        })
+        //   })
+        // })
       }
     });
   }
@@ -88,14 +88,14 @@ exports.userSignin = (req,res,next) =>{
   UserData.findOne({email: email})
   .then(user =>{
     if(!user){
-      const error = new Error('A user with this mobile number could not be found.');
+      const error = new Error('A user with this email could not be found.');
       error.statusCode = 401;
       throw error;
     
     }
     loadedUser = user;
-    return bcrypt.compare(password,user.password);
-  })
+    return (password===user.password?true:false) 
+ })
   .then(isEqual =>{
     if(!isEqual){
       const error = new Error('wrong password.');
@@ -206,5 +206,12 @@ exports.userSignin = (req,res,next) =>{
             });
           };
         
-          
+          // exports.changepassword = (req, res)=> {
+          //   console.log(req.body)
+          //   UserData.findOneAndUpdate({email: req.body.email}, req.body, {new: true}, function(err, task) {
+          //   if (err)
+          //   res.send(err);
+          //   res.json(task);
+          //   });
+          //   };      
             
