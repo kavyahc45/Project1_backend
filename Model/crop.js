@@ -27,6 +27,16 @@ premium:{
     type: Number,
     default:null
    
+},
+Create_At:{
+
+    type: Date,
+   default: Date.now
+},
+Update_At:{
+
+    type: Date,
+   default: Date.now
 }
 
 });
