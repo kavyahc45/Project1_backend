@@ -35,16 +35,16 @@ exports.signup= function(req, res){
       else
       {
         var userData = new UserData(req.body);
-        // bcrypt.genSalt(10, function(err, salt){
-        //   bcrypt.hash(userData.password, salt, function(err, hash) {
-        //     userData.password = hash;
+        bcrypt.genSalt(10, function(err, salt){
+          bcrypt.hash(userData.password, salt, function(err, hash) {
+            userData.password = hash;
             userData.save(function(err, data){
               if(err)
                 res.send(err.message);
               res.json('User Created Succesfully');
             })
-        //   })
-        // })
+          })
+        })
       }
     });
   }
@@ -94,7 +94,8 @@ exports.userSignin = (req,res,next) =>{
     
     }
     loadedUser = user;
-    return (password===user.password?true:false) 
+    // return (password===user.password?true:false) 
+    return bcrypt.compare(password,user.password);
  })
   .then(isEqual =>{
     if(!isEqual){
